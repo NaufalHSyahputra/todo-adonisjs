@@ -13,11 +13,12 @@ class TaskController {
     const validation = await validate(request.all(), {
       title: 'required|min:3|max:255'
     })
-    if (validation.fails()) {
-      session.withErrors(validation.message()).flashAll()
+  if (validation.fails()) {
+    session.withErrors(validation.messages())
+            .flashAll()
 
-      return response.redirect('back')
-    }
+    return response.redirect('back')
+  }
 
     const task = new Task()
     task.title = request.input('title')
